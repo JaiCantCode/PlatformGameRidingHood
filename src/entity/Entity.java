@@ -4,13 +4,13 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
 
-    int worldX;
-    int worldY;
-    int jumpHeight;
-    int horizontalSpeed;
-    double verticalSpeed;
-    double gravity;
-    int dashSpeed;
+    public int worldX;
+    public int worldY;
+    public int jumpHeight;
+    public int horizontalSpeed;
+    public double verticalSpeed;
+    public double gravity;
+    public int dashSpeed;
 
     public BufferedImage
             staticRight, staticLeft,

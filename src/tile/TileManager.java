@@ -20,12 +20,14 @@ public class TileManager {
     public Map<Character, Tile> tile;
     public char[][] mapTileVal;
 
+    public final String map = "/maps/map02.txt";
+
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new HashMap<>();
         mapTileVal = new char[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
-        loadMap("/maps/map02.txt");
+        loadMap(map);
     }
 
     public BufferedImage getImage(String name) throws IOException { return ImageIO.read(getClass().getResourceAsStream(name));}
@@ -137,23 +139,28 @@ public class TileManager {
 
     public void draw(Graphics2D g2) {
 
-        int col = 0;
-        int row = 0;
+        int worldCol = 0;
+        int worldRow = 0;
         int x = 0;
         int y = 0;
 
-        while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+        while(worldCol < gp.maxScreenCol && worldRow < gp.maxScreenRow) {
 
-            char tileVal = mapTileVal[col][row];
+            char tileVal = mapTileVal[worldCol][worldRow];
 
-            g2.drawImage(tile.get(tileVal).image, x, y, gp.tileSize,gp.tileSize,null);
-            col++;
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
+            int screenX = worldX - gp.player.worldX + gp.player.screenX;
+            int screenY = y;
+
+            g2.drawImage(tile.get(tileVal).image, screenX, screenY, gp.tileSize,gp.tileSize,null);
+            worldCol++;
             x += gp.tileSize;
 
-            if(col == gp.maxScreenCol) {
-                col = 0;
-                x = 0;
-                row++;
+            if(worldCol == gp.maxScreenCol) {
+                worldCol = 0;
+                //x = 0;
+                worldRow++;
                 y += gp.tileSize;
             }
 
